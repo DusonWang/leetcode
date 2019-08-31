@@ -185,6 +185,7 @@ public class CalcEquation {
         queries.add(new ArrayList<>(Arrays.asList("x", "x")));
 
 
+
         System.out.println(Arrays.toString(calcEquation.calcEquation(equations, values, queries)));
     }
 }
