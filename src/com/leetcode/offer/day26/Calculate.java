@@ -51,6 +51,8 @@ public class Calculate {
                     case '/':
                         curRes /= num;
                         break;
+                    default:
+                        break;
                 }
                 if (c == '+' || c == '-' || i == n - 1) {
                     res += curRes;
