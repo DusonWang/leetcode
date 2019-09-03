@@ -55,6 +55,38 @@ public class MinWindow {
 //        return minLen == s.length() + 1 ? "" : s.substring(l, r);
 //    }
 
+    public String minWindow2(String s, String t) {
+        if (s == null || t == null || s.length() < t.length()) {
+            return "";
+        }
+
+        int[] map = new int[256];
+        for (char c : t.toCharArray()) {
+            map[c]++;
+        }
+
+        int count = t.length();
+        int minLen = Integer.MAX_VALUE;
+        int head = 0;
+        int walker = 0;
+        int runner = 0;
+        while (runner < s.length()) {
+            if (map[s.charAt(runner++)]-- > 0) {
+                count--;
+            }
+            while (count == 0) {
+                if (runner - walker < minLen) {
+                    minLen = runner - walker;
+                    head = walker;
+                }
+                if (map[s.charAt(walker++)]++ == 0) {
+                    count++;
+                }
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(head, head + minLen);
+    }
+
     public String minWindow(String s, String t) {
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
