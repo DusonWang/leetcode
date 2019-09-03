@@ -25,9 +25,25 @@ public class TrailingZeroes {
     public int trailingZeroes(int n) {
         int count = 0;
         while (n >= 5) {
-            count = count + n / 5;
+            count += n / 5;
             n = n / 5;
         }
         return count;
+    }
+
+    /*
+     * 进阶问题
+     * 返回最低位二进制1在那个位置上
+     * */
+    public int trailingZeroesIndex(int n) {
+        if (n < 1) {
+            return -1;
+        }
+        int res = 0;
+        while (n != 0) {
+            n >>>= 1;
+            res += n;
+        }
+        return res;
     }
 }
