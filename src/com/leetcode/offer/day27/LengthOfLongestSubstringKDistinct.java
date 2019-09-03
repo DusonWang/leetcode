@@ -45,6 +45,5 @@ public class LengthOfLongestSubstringKDistinct {
         LengthOfLongestSubstringKDistinct lo = new LengthOfLongestSubstringKDistinct();
         System.out.println(lo.lengthOfLongestSubstringKDistinct("eceba", 2));
         System.out.println(lo.lengthOfLongestSubstringKDistinct("aa", 1));
-        System.out.println(lo.lengthOfLongestSubstringKDistinct("ecebaaa", 1));
     }
 }
