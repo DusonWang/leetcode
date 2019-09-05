@@ -5,6 +5,9 @@ package com.leetcode.offer.day28;
  */
 public class SubArraySum {
 
+    /*
+     * all positive numbers
+     * */
     public int findSumWays(int[] nums, int m) {
         final int[] dp = new int[m + 1];
         dp[0] = 1;
