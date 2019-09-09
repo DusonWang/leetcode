@@ -24,7 +24,18 @@ package com.leetcode.offer.day29;
  */
 public class IntegerBreak {
 
-    public int integerBreak2(int n) {
+    public int integerBreak(int n) {
+        // if (n == 2) {
+        //     return 1;
+        // }
+        // int[] dp = new int[n + 1];
+        // dp[2] = 1;
+        // for (int i = 3; i <= n; i++) {
+        //     for (int j = 1; j <= i - 1; j++) {
+        //         dp[i] = Math.max(dp[i], Math.max(j * dp[i - j], j * (i - j)));
+        //     }
+        // }
+        // return dp[n];
         if (n == 2 || n == 3) {
             return n - 1;
         }
@@ -34,20 +45,5 @@ public class IntegerBreak {
             n -= 3;
         }
         return res * n;
-
-    }
-
-    public int integerBreak(int n) {
-        if (n == 2) {
-            return 1;
-        }
-        int[] dp = new int[n + 1];
-        dp[2] = 1;
-        for (int i = 3; i < n; i++) {
-            for (int j = 1; j <= i - 1; j++) {
-                dp[i] = Math.max(dp[i], Math.max(j * dp[i - j], j * (i - j)));
-            }
-        }
-        return dp[n];
     }
 }
