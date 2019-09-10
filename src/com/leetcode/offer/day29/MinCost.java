@@ -25,6 +25,9 @@ package com.leetcode.offer.day29;
  */
 public class MinCost {
 
+    /*
+     * O(n) O(n)
+     * */
     public int minCost(int[][] costs) {
         int n = costs.length;
         if (n == 0) {
@@ -40,5 +43,26 @@ public class MinCost {
             dp[i][2] = Math.min(dp[i - 1][0], dp[i - 1][1]) + costs[i][2];
         }
         return Math.min(Math.min(dp[n - 1][0], dp[n - 1][1]), dp[n - 1][2]);
+    }
+
+    /*
+     * O(n) O(1)
+     * */
+    public int minCost2(int[][] costs) {
+        if (costs == null || costs.length == 0) {
+            return 0;
+        }
+        int minCostColor1 = costs[0][0];
+        int minCostColor2 = costs[0][1];
+        int minCostColor3 = costs[0][2];
+        for (int i = 1; i < costs.length; i++) {
+            int preMinCostColor1 = minCostColor1;
+            int preMinCostColor2 = minCostColor2;
+            int preMinCostColor3 = minCostColor3;
+            minCostColor1 = costs[i][0] + Math.min(preMinCostColor2, preMinCostColor3);
+            minCostColor2 = costs[i][1] + Math.min(preMinCostColor1, preMinCostColor3);
+            minCostColor3 = costs[i][2] + Math.min(preMinCostColor1, preMinCostColor2);
+        }
+        return Math.min(minCostColor1, Math.min(minCostColor2, minCostColor3));
     }
 }
