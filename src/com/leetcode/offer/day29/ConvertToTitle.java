@@ -49,13 +49,15 @@ public class ConvertToTitle {
     }
 
     public String convertToTitle2(int n) {
-        char[] a = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};//表
-        StringBuilder res = new StringBuilder();
-        while (n > 0) {
+        String res = "";
+        int temp;
+        while (n != 0) {
             n--;
-            res.insert(0, a[n % 26]);
+            temp = n % 26;
+            res = (char) (temp + 'A') + res;
             n = n / 26;
         }
-        return res.toString();
+        return res;
+
     }
 }
