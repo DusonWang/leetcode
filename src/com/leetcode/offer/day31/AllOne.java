@@ -27,7 +27,7 @@ public class AllOne {
         String s;
 
         Node(int x, String s) {
-            val = x;
+            this.val = x;
             this.s = s;
         }
     }
@@ -40,7 +40,7 @@ public class AllOne {
      * Initialize your data structure here.
      */
     public AllOne() {
-        map = new HashMap<String, Node>();
+        map = new HashMap<>();
         head = new Node(Integer.MAX_VALUE, "");
         tail = new Node(Integer.MIN_VALUE, "");
         head.next = tail;
