@@ -1,9 +1,6 @@
 package com.leetcode.offer.day34;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @author duson
@@ -127,7 +124,7 @@ public class AutocompleteSystem {
         }
 
         private List<String> searchChar(char c) {
-            List<String> result = new LinkedList<>();
+            List<String> result = new ArrayList<>();
             if (c == '#') {
                 current.sentence = sb.toString();
                 ++current.times;
