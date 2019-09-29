@@ -54,6 +54,12 @@ public class GuessNumber {
 
 
     public static void main(String[] args) {
+        int i = 1;
+        int j = 10;
+        int m = i + (j - i) / 2;
+        int k = i + (j - i) >> 1;
+        int e = i + ((j - i) >> 1);
 
+        System.out.println("[m=]" + m + "[k=]" + k + "[e=]" + e);
     }
 }
