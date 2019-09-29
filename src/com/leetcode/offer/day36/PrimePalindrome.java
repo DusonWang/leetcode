@@ -51,24 +51,24 @@ public class PrimePalindrome {
         }
     }
 
-    private boolean isPrime(int N) {
-        if (N < 2) {
+    private boolean isPrime(int n) {
+        if (n < 2) {
             return false;
         }
-        int R = (int) Math.sqrt(N);
-        for (int d = 2; d <= R; ++d) {
-            if (N % d == 0) {
+        int r = (int) Math.sqrt(n);
+        for (int d = 2; d <= r; ++d) {
+            if (n % d == 0) {
                 return false;
             }
         }
         return true;
     }
 
-    public int reverse(int N) {
+    public int reverse(int n) {
         int ans = 0;
-        while (N > 0) {
-            ans = 10 * ans + (N % 10);
-            N /= 10;
+        while (n > 0) {
+            ans = 10 * ans + (n % 10);
+            n /= 10;
         }
         return ans;
     }
