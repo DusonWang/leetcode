@@ -40,7 +40,7 @@ public class FixedPoint {
     public int fixedPoint(int[] a) {
         int i = 0;
         int j = a.length - 1;
-        while (i <= j) {
+        while (i < j) {
             int mid = i + ((j - i) >> 1);
             if (a[mid] >= mid) {
                 j = mid;
