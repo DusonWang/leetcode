@@ -60,7 +60,7 @@ public class NextGreatestLetter {
                 left = mid + 1;
             }
         }
-        return letters[left%letters.length];
+        return letters[left % letters.length];
     }
 
     public static void main(String[] args) {
