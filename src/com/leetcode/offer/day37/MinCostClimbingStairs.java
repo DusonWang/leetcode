@@ -29,6 +29,20 @@ package com.leetcode.offer.day37;
  */
 public class MinCostClimbingStairs {
 
+    public int minCostClimbingStairs2(int[] cost) {
+        int secondLast = cost[0];
+        int last = cost[1];
+        int temp;
+
+        for (int i = 2; i < cost.length; i++) {
+            temp = last;
+            last = Math.min(secondLast, last) + cost[i];
+            secondLast = temp;
+        }
+
+        return Math.min(secondLast, last);
+    }
+
     public int minCostClimbingStairs(int[] cost) {
         int[] a = new int[cost.length];
         a[0] = cost[0];
