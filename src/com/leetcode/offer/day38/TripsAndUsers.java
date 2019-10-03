@@ -53,7 +53,7 @@ public class TripsAndUsers {
     //# Write your MySQL query statement below
     //select
     //t.request_at as 'Day',
-    //round(sum(if(t.STATUS = 'completed',0,1))/COUNT(t.STATUS),2) as 'Cancellation Rate'
+    //round(sum(if(t.STATUS = 'completed',0,1))/count(t.STATUS),2) as 'Cancellation Rate'
     //from Trips as t
     //join Users as u1 on (t.client_id = u1.users_id and u1.banned ='No')
     //join Users as U2 on (t.driver_id = u2.users_id and u2.banned ='No')
