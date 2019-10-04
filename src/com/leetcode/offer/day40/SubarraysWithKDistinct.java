@@ -34,36 +34,6 @@ package com.leetcode.offer.day40;
  */
 public class SubarraysWithKDistinct {
 
-    public int subarraysWithKDistinct3(int[] A, int K) {
-        if (A == null || A.length < K) {
-            return 0;
-        }
-
-        int[] hash = new int[A.length + 1];
-        int l = 0, count = 0, result = 1, results = 0;
-        for (int r = 0; r < A.length; r++) {
-            hash[A[r]]++;
-            if (hash[A[r]] == 1) {
-                count++;
-            }
-            while (hash[A[l]] > 1 || count > K) {
-                if (count > K) {
-                    result = 1;
-                    count--;
-                } else {
-                    result++;
-                }
-                hash[A[l]]--;
-                l++;
-            }
-            if (count == K) {
-                results += result;
-            }
-        }
-
-        return results;
-    }
-
     public int subarraysWithKDistinct(int[] a, int k) {
         int[] count = new int[a.length + 1];
         int distinct = 0, start = 0, minEnd = 0, total = 0;
@@ -85,35 +55,5 @@ public class SubarraysWithKDistinct {
             }
         }
         return total;
-    }
-
-    public int subarraysWithKDistinct2(int[] a, int k) {
-        int[] counts = new int[a.length + 1];
-        int goodCount = 0;
-        int l = 0;
-        int countDistinct = 0;
-        int mult = 1;
-
-        for (int i : a) {
-            if (counts[i]++ == 0) {
-                countDistinct++;
-            }
-            while (countDistinct > k) {
-                if (--counts[a[l]] == 0) {
-                    countDistinct--;
-                }
-                l++;
-                mult = 1;
-            }
-            if (countDistinct == k) {
-                while (counts[a[l]] > 1) {
-                    mult++;
-                    counts[a[l]]--;
-                    l++;
-                }
-                goodCount += mult;
-            }
-        }
-        return goodCount;
     }
 }
