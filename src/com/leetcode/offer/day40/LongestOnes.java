@@ -36,6 +36,18 @@ package com.leetcode.offer.day40;
  */
 public class LongestOnes {
 
+    public int longestOnes2(int[] a, int k) {
+        int start = 0;
+        int end = 0;
+        while (end < a.length) {
+            k -= 1 - a[end++];
+            if (k < 0) {
+                k += 1 - a[start++];
+            }
+        }
+        return end - start;
+    }
+
     public int longestOnes(int[] a, int k) {
         int res = 0;
         for (int count = 0, l = 0, r = 0; r < a.length; ++r) {
