@@ -51,4 +51,24 @@ public class ArraysIntersection {
         }
         return list;
     }
+
+    public List<Integer> arraysIntersection2(int[] arr1, int[] arr2, int[] arr3) {
+        List<Integer> res = new ArrayList<>();
+        int[] map = new int[2001];
+        if (arr1 == null || arr2 == null || arr3 == null) {
+            return res;
+        }
+        for (int i = arr1.length - 1; i >= 0; i--) {
+            map[arr1[i]]++;
+        }
+        for (int i = arr2.length - 1; i >= 0; i--) {
+            map[arr2[i]]++;
+        }
+        for (int value : arr3) {
+            if (map[value] == 2) {
+                res.add(value);
+            }
+        }
+        return res;
+    }
 }
