@@ -44,7 +44,7 @@ public class MaxProfitAssignment {
         return sum;
     }
 
-    public int maxProfitAssignment3(int[] difficulty, int[] profit, int[] worker) {
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
         int[] dp = new int[100001];
         for (int i = 0; i < difficulty.length; i++) {
             dp[difficulty[i]] = Math.max(dp[difficulty[i]], profit[i]);
@@ -59,27 +59,5 @@ public class MaxProfitAssignment {
             sum += dp[i];
         }
         return sum;
-    }
-
-    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
-        int maxDiff = 0;
-        int profits = 0;
-        for (int i : difficulty) {
-            maxDiff = Math.max(maxDiff, i);
-        }
-        int[] buckets = new int[maxDiff + 1];
-        for (int i = 0; i < profit.length; i++) {
-            buckets[difficulty[i]] = Math.max(buckets[difficulty[i]], profit[i]);
-        }
-
-        for (int i = 1; i < buckets.length; i++) {
-            buckets[i] = Math.max(buckets[i - 1], buckets[i]);
-        }
-
-        for (int w : worker) {
-            profits = profits + (w >= maxDiff ? buckets[maxDiff] : buckets[w]);
-        }
-
-        return profits;
     }
 }
