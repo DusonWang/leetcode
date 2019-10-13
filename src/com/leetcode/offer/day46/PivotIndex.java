@@ -40,8 +40,7 @@ public class PivotIndex {
         for (int num : nums) {
             total += num;
         }
-        for (int i = 0; i < nums.length;) {
-            sum += nums[i++];
+        for (int i = 0; i < nums.length;sum += nums[i++]) {
             if (sum * 2 == total - nums[i]) {
                 return i;
             }
