@@ -56,39 +56,39 @@ public class MinWindow {
         return start == -1 ? "" : s.substring(start, start + minLen);
     }
 
-    public String minWindow2(String S, String T) {
-        if (S.length() < T.length()) {
+    public String minWindow2(String s, String t) {
+        if (s.length() < t.length()) {
             return "";
         }
-        if (S.contains(T)) {
-            return T;
+        if (s.contains(t)) {
+            return t;
         }
         int start = 0;
-        int end = S.length() - 1;
-        int ptr1 = 0;
-        int ptr2 = 0;
-        while (ptr1 < S.length()) {
-            if (S.charAt(ptr1) == T.charAt(ptr2)) {
-                ptr2++;
+        int end = s.length() - 1;
+        int p = 0;
+        int q = 0;
+        while (p < s.length()) {
+            if (s.charAt(p) == t.charAt(q)) {
+                q++;
             }
-            if (ptr2 == T.length()) {
-                int right = ptr1;
-                ptr2--;
-                while (ptr2 >= 0) {
-                    if (S.charAt(ptr1) == T.charAt(ptr2)) {
-                        ptr2--;
+            if (q == t.length()) {
+                int right = p;
+                q--;
+                while (q >= 0) {
+                    if (s.charAt(p) == t.charAt(q)) {
+                        q--;
                     }
-                    ptr1--;
+                    p--;
                 }
-                ptr1++;
-                if (right - ptr1 + 1 < end - start + 1) {
-                    start = ptr1;
+                p++;
+                if (right - p + 1 < end - start + 1) {
+                    start = p;
                     end = right;
                 }
-                ptr2 = 0;
+                q = 0;
             }
-            ptr1++;
+            p++;
         }
-        return end - start + 1 == S.length() ? "" : S.substring(start, end + 1);
+        return end - start + 1 == s.length() ? "" : s.substring(start, end + 1);
     }
 }
