@@ -26,7 +26,68 @@ import java.util.Arrays;
  */
 public class WiggleSort {
 
+    public int findK(int[] nums, int k, int start, int end) {
+        int low = start;
+        int high = end;
+        int pivot = nums[(low + high) / 2];
+        while (low <= high) {
+            while (nums[high] < pivot) {
+                high--;
+            }
+
+            while (nums[low] > pivot) {
+                low++;
+            }
+
+            if (low <= high) {
+                int temp = nums[low];
+                nums[low] = nums[high];
+                nums[high] = temp;
+                low++;
+                high--;
+            }
+
+        }
+
+        if (start < high && k <= high) {
+            return findK(nums, k, start, high);
+        }
+        if (low < end && k >= low) {
+            return findK(nums, k, low, end);
+        }
+        return nums[k];
+    }
+
+    public int findKthLargest(int[] nums, int k) {
+        return findK(nums, k - 1, 0, nums.length - 1);
+    }
+
     public void wiggleSort(int[] nums) {
+        int median = findKthLargest(nums, (nums.length + 1) / 2);
+        int n = nums.length;
+        int left = 0, i = 0, right = n - 1;
+        while (i <= right) {
+            if (nums[newIndex(i, n)] > median) {
+                swap(nums, newIndex(left++, n), newIndex(i++, n));
+            } else if (nums[newIndex(i, n)] < median) {
+                swap(nums, newIndex(right--, n), newIndex(i, n));
+            } else {
+                i++;
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
+    private int newIndex(int index, int n) {
+        return (1 + 2 * index) % (n | 1);
+    }
+
+    public void wiggleSort2(int[] nums) {
         final int len = nums.length;
         final int[] copy = Arrays.copyOf(nums, len);
         Arrays.sort(copy);
