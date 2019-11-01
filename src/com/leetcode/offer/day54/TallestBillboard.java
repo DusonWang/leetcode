@@ -54,4 +54,10 @@ public class TallestBillboard {
         }
         return dp[0];
     }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 4, 5, 6};
+        TallestBillboard tallestBillboard = new TallestBillboard();
+        tallestBillboard.tallestBillboard(arr);
+    }
 }
