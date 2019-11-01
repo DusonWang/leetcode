@@ -48,4 +48,10 @@ public class MaximumSum {
         }
         return result;
     }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3};
+        MaximumSum maximumSum = new MaximumSum();
+        System.out.println(maximumSum.maximumSum(arr));
+    }
 }
