@@ -50,7 +50,7 @@ public class LongestArithSeqLength {
             for (int j = 0; j < i; j++) {
                 int diff = a[i] - a[j];
                 dp[i].put(diff, dp[j].getOrDefault(diff, 1)+1);
-                result = Math.max(result, (int) dp[i].get(diff));
+                result = Math.max(result, dp[i].get(diff));
             }
         }
         return result;
