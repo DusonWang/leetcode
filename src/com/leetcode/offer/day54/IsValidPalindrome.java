@@ -28,7 +28,7 @@ package com.leetcode.offer.day54;
 public class IsValidPalindrome {
 
     public boolean isValidPalindrome(String s, int k) {
-        return longestPalindromeSubseq(s) - s.length() <= k;
+        return s.length() - longestPalindromeSubseq(s) <= k;
     }
 
     private int longestPalindromeSubseq(String s) {
