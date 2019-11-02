@@ -25,8 +25,11 @@ import java.util.List;
 public class MajorityElement {
 
     public List<Integer> majorityElement(int[] nums) {
-        int candidate1 = 0;
-        int candidate2 = 1;
+        if (nums == null || nums.length == 0) {
+            return new ArrayList<>();
+        }
+        int candidate1 = nums[0];
+        int candidate2 = nums[0];
         int count1 = 0;
         int count2 = 0;
 
@@ -49,7 +52,8 @@ public class MajorityElement {
             }
         }
 
-        count1 = 0; count2 = 0;
+        count1 = 0;
+        count2 = 0;
 
         for (int num : nums) {
             if (num == candidate1) {
@@ -59,10 +63,10 @@ public class MajorityElement {
             }
         }
 
-        if (count1 > nums.length/3) {
+        if (count1 > nums.length / 3) {
             result.add(candidate1);
         }
-        if (count2 > nums.length/3) {
+        if (count2 > nums.length / 3) {
             result.add(candidate2);
         }
 
