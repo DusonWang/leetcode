@@ -1,4 +1,4 @@
-package com.leetcode.offer.day54;
+package com.leetcode.offer.day56;
 
 /**
  * @author duson

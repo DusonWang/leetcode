@@ -1,4 +1,4 @@
-package com.leetcode.offer.day54;
+package com.leetcode.offer.day56;
 
 import java.util.Arrays;
 import java.util.Comparator;
