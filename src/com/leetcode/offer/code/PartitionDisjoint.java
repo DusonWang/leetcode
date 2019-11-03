@@ -36,27 +36,19 @@ package com.leetcode.offer.code;
 public class PartitionDisjoint {
 
     public int partitionDisjoint(int[] a) {
-        int n = a.length;
-        int[] maxLeft = new int[n];
-        int[] minRight = new int[n];
+        int len = a.length;
+        int max = a[0];
+        int max1 = a[0];
+        int loc = 0;
 
-        int m = a[0];
-        for (int i = 0; i < n; ++i) {
-            m = Math.max(m, a[i]);
-            maxLeft[i] = m;
-        }
-
-        m = a[n - 1];
-        for (int i = n - 1; i >= 0; --i) {
-            m = Math.min(m, a[i]);
-            minRight[i] = m;
-        }
-
-        for (int i = 1; i < n; ++i) {
-            if (maxLeft[i - 1] <= minRight[i]) {
-                return i;
+        for (int i = 1; i < len - 1; i++) {
+            if (a[i] < max1) {
+                max1 = max;
+                loc = i;
+            } else {
+                max = Math.max(max, a[i]);
             }
         }
-        return -1;
+        return loc + 1;
     }
 }
