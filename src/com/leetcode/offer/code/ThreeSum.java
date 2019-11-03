@@ -1,4 +1,4 @@
-package com.leetcode.offer.day2;
+package com.leetcode.offer.code;
 
 import java.util.ArrayList;
 import java.util.Arrays;
