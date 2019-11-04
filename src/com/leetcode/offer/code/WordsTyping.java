@@ -67,7 +67,7 @@ package com.leetcode.offer.code;
  */
 public class WordsTyping {
 
-    public int wordsTyping2(String[] sentence, int rows, int cols) {
+    public int wordsTyping(String[] sentence, int rows, int cols) {
         String s = String.join(" ", sentence) + " ";
         int start = 0, len = s.length();
         for (int i = 0; i < rows; i++) {
@@ -81,32 +81,5 @@ public class WordsTyping {
             }
         }
         return start / len;
-    }
-
-    public int wordsTyping(String[] sentence, int rows, int cols) {
-        int n = sentence.length;
-        int ans = 0;
-        int curr;
-        int idx = 0;
-        int l = 0;
-        for (String s : sentence) {
-            l += s.length() + 1;
-        }
-        for (int i = 0; i < rows; ++i) {
-            curr = cols;
-            while (curr > 0 && curr >= sentence[idx].length()) {
-                curr = curr - sentence[idx].length();
-                idx++;
-                if (curr > 0) {
-                    curr--;
-                }
-                if (idx == n) {
-                    ans += curr / l + 1;
-                    curr = curr % l;
-                    idx = 0;
-                }
-            }
-        }
-        return ans;
     }
 }
