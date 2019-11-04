@@ -1,7 +1,5 @@
 package com.leetcode.offer.code;
 
-import java.util.Arrays;
-
 /**
  * @author duson
  * 给定一个整数数组  nums 和一个正整数 k，找出是否有可能把这个数组分成 k 个非空子集，其总和都相等。
@@ -24,36 +22,37 @@ import java.util.Arrays;
  */
 public class CanPartitionKSubsets {
 
-    public boolean canPartitionKSubsets(int[] nums, int k) {
-        int sum = 0;
-        for (int num : nums) {
-            sum += num;
-        }
-        int target = sum / k;
-        if (target * k != sum) {
-            return false;
-        }
-        int[] subset = new int[k];
-        Arrays.sort(nums);
-        return helper(nums, k, nums.length - 1, subset, target);
-    }
-
-    private boolean helper(int[] nums, int k, int start, int[] subset, int target) {
-        if (start < 0) {
+    private boolean backtracking(int[] nums, int k, int target, int cur, int start, boolean[] used) {
+        if (k == 0) {
             return true;
         }
-        for (int i = 0; i < k; i++) {
-            if (i > 0 && subset[i - 1] == 0) {
-                return false;
-            }
-            if (subset[i] + nums[start] <= target) {
-                subset[i] += nums[start];
-                if (helper(nums, k, start - 1, subset, target)) {
+        if (cur == target) {
+            return backtracking(nums, k - 1, target, 0, 0, used);
+        }
+        for (int i = start; i < nums.length; i++) {
+            if (!used[i] && cur + nums[i] <= target) {
+                used[i] = true;
+                if (backtracking(nums, k, target, cur + nums[i], i + 1, used)) {
                     return true;
                 }
-                subset[i] -= nums[start];
+                used[i] = false;
             }
         }
         return false;
+    }
+
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int sum = 0, maxNum = 0;
+        for (int num : nums) {
+            sum += num;
+            if (maxNum < num) {
+                maxNum = num;
+            }
+        }
+        if (sum % k != 0 || maxNum > sum / k) {
+            return false;
+        }
+        boolean[] used = new boolean[nums.length];
+        return backtracking(nums, k, sum / k, 0, 0, used);
     }
 }
