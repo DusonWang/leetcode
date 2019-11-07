@@ -32,6 +32,14 @@ package com.leetcode.offer.code;
 public class IsOneBitCharacter {
 
     public boolean isOneBitCharacter(int[] bits) {
-        return false;
+        int last = -1;
+        for (int i = 0; i < bits.length; i++) {
+            if (bits[i] == 1) {
+                ++i;
+            } else {
+                last = i;
+            }
+        }
+        return last == bits.length - 1;
     }
 }
