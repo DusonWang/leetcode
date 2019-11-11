@@ -52,14 +52,14 @@ public class IsCousins {
         }
     }
 
-    private int depthx;
-    private int depthy;
+    private int dx;
+    private int dy;
     private TreeNode px;
     private TreeNode py;
 
     public boolean isCousins(TreeNode root, int x, int y) {
         helper(root, x, y, 0, null);
-        return depthx == depthy && px != py;
+        return dx == dy && px != py;
     }
 
     private void helper(TreeNode root, int x, int y, int depth, TreeNode parent) {
@@ -67,10 +67,10 @@ public class IsCousins {
             return;
         }
         if (root.val == x) {
-            depthx = depth;
+            dx = depth;
             px = parent;
         } else if (root.val == y) {
-            depthy = depth;
+            dy = depth;
             py = parent;
         }
         helper(root.left, x, y, depth + 1, root);
