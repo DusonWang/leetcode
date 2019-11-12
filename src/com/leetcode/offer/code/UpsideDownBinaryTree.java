@@ -75,7 +75,6 @@ public class UpsideDownBinaryTree {
     public TreeNode upsideDownBinaryTree2(TreeNode root) {
         TreeNode parent = null, parentRight = null;
         while (root != null) {
-            //左子节点变父节点；父节点变右子节点；右子节点变父节点
             TreeNode rootLeft = root.left;
             root.left = parentRight;
             parentRight = root.right;
