@@ -71,4 +71,17 @@ public class UpsideDownBinaryTree {
         node.right = parent;
         return ret;
     }
+
+    public TreeNode upsideDownBinaryTree2(TreeNode root) {
+        TreeNode parent = null, parentRight = null;
+        while (root != null) {
+            TreeNode rootLeft = root.left;
+            root.left = parentRight;
+            parentRight = root.right;
+            root.right = parent;
+            parent = root;
+            root = rootLeft;
+        }
+        return parent;
+    }
 }
