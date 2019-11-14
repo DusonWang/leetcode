@@ -53,4 +53,11 @@ public class NumberOfSubarrays {
         }
         return r;
     }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{2, 2, 2, 1, 2, 2, 1, 2, 2, 2};
+        int k = 2;
+        NumberOfSubarrays numberOfSubarrays = new NumberOfSubarrays();
+        System.out.println(numberOfSubarrays.numberOfSubarrays(nums, k));
+    }
 }
