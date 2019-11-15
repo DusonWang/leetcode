@@ -65,10 +65,10 @@ public class NumberOfCommentsPerPost {
 
     //# Write your MySQL query statement below
     //select s1.sub_id as post_id,count(distinct s2.sub_id) as number_of_comments
-    //from Submissions as S1
-    //left join Submissions as S2
+    //from Submissions as s1
+    //left join Submissions as s2
     //on s2.parent_id=s1.sub_id
-    //where S1.parent_id is null
+    //where s1.parent_id is null
     //group by s1.sub_id
 
 }
