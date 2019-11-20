@@ -35,7 +35,6 @@ public class GroupStrings {
         Map<String, List<String>> map = new HashMap<>();
         for (String s : strings) {
             String key = encode(s);
-            System.out.println(key);
             List<String> values = map.computeIfAbsent(key, k -> new ArrayList<>());
             values.add(s);
         }
