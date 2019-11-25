@@ -52,7 +52,7 @@ public class CalculateTime {
         for (char c : ch) {
             for (int j = 0; j < ch1.length; j++) {
                 if (c == ch1[j]) {
-                    sum += j - start >= 0 ? j - start : start - j;
+                    sum += Math.abs(start - j);
                     start = j;
                     break;
                 }
