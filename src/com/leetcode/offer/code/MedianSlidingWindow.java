@@ -53,10 +53,11 @@ public class MedianSlidingWindow {
                 lo.add(hi.poll());
             }
             if (lo.size() + hi.size() == k) {
-                result[j++] = lo.size() == hi.size() ? (double) ((long) lo.peek() + (long) hi.peek()) / 2 : (double) lo.peek();
+                result[j] = lo.size() == hi.size() ? (double) ((long) lo.peek() + (long) hi.peek()) / 2 : (double) lo.peek();
                 if (!lo.remove(nums[j])) {
                     hi.remove(nums[j]);
                 }
+                j++;
             }
         }
         return result;
