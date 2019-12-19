@@ -39,29 +39,18 @@ import java.util.Map;
  */
 public class IsNStraightHand {
 
-    public boolean isNStraightHand(int[] nums, int w) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int num : nums) {
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
-            }
+    public boolean isNStraightHand(int[] hand, int w) {
+        if (hand.length % w != 0) {
+            return false;
         }
-        Arrays.sort(nums);
-        for (int num : nums) {
-            if (map.get(num) == 0) {
-                continue;
-            }
-            for (int j = num; j < num + w; j++) {
-                if (!map.containsKey(j)) {
-                    return false;
-                }
-
-                if (map.get(j) == 0) {
-                    return false;
-                }
-                map.put(j, map.get(j) - 1);
+        int[] arr = new int[w];
+        for (int value : hand) {
+            arr[value % w]++;
+        }
+        int size = hand.length / w;
+        for (int j : arr) {
+            if (j != size) {
+                return false;
             }
         }
         return true;
