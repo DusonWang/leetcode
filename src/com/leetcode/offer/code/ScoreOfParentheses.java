@@ -40,18 +40,17 @@ package com.leetcode.offer.code;
 public class ScoreOfParentheses {
 
     public int scoreOfParentheses(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
-        char[] chars = s.toCharArray();
-        int res = 0;
-        int layer = -1;
-        for (int i = 0; i < chars.length; i++) {
-            layer += chars[i] == '(' ? 1 : -1;
-            if (chars[i] == '(' && chars[i + 1] == ')') {
-                res += 1 << layer;
+        int ans = 0, bal = 0;
+        for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) == '(') {
+                bal++;
+            } else {
+                bal--;
+                if (s.charAt(i - 1) == '(') {
+                    ans += 1 << bal;
+                }
             }
         }
-        return res;
+        return ans;
     }
 }
