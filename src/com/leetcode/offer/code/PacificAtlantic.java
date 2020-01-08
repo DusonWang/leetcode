@@ -1,6 +1,7 @@
 package com.leetcode.offer.code;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,54 +47,57 @@ import java.util.List;
  */
 public class PacificAtlantic {
 
-    private int row, col;
-    private int[][] grid;
-    private List<List<Integer>> result = new ArrayList<>();
-
     public List<List<Integer>> pacificAtlantic(int[][] matrix) {
-        row = matrix.length;
-        if (row == 0) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (matrix.length == 0 || matrix[0].length == 0) {
             return result;
         }
-        col = matrix[0].length;
-        grid = new int[row][col];
-        for (int i = 0; i < row; i++) {
-            helper(matrix, i, 0, 1);
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[][] buffer1 = new boolean[m][n];
+        boolean[][] buffer2 = new boolean[m][n];
+        for (int i = 0; i < m; ++i) {
+            buffer1[i][0] = true;
+            traverse(matrix, buffer1, i, 0);
         }
-        for (int j = 0; j < col; j++) {
-            helper(matrix, 0, j, 1);
+        for (int j = 0; j < n; ++j) {
+            buffer1[0][j] = true;
+            traverse(matrix, buffer1, 0, j);
         }
-        for (int i = 0; i < row; i++) {
-            helper(matrix, i, col - 1, 2);
+        for (int i = 0; i < m; ++i) {
+            buffer2[i][n - 1] = true;
+            traverse(matrix, buffer2, i, n - 1);
         }
-        for (int j = 0; j < col; j++) {
-            helper(matrix, row - 1, j, 2);
+        for (int j = 0; j < n; ++j) {
+            buffer2[m - 1][j] = true;
+            traverse(matrix, buffer2, m - 1, j);
+        }
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (buffer1[i][j] && buffer2[i][j]) {
+                    result.add(Arrays.asList(i, j));
+                }
+            }
         }
         return result;
     }
 
-    private void helper(int[][] matrix, int i, int j, int v) {
-        if (grid[i][j] == v || grid[i][j] == 3) {
-            return;
+    private void traverse(int[][] matrix, boolean[][] buffer, int i, int j) {
+        if (i > 0 && !buffer[i - 1][j] && matrix[i - 1][j] >= matrix[i][j]) {
+            buffer[i - 1][j] = true;
+            traverse(matrix, buffer, i - 1, j);
         }
-        grid[i][j] += v;
-        if (grid[i][j] == 3) {
-            List<Integer> temp = new ArrayList<>();
-            temp.add(i);
-            temp.add(j);
-            result.add(temp);
+        if (j > 0 && !buffer[i][j - 1] && matrix[i][j - 1] >= matrix[i][j]) {
+            buffer[i][j - 1] = true;
+            traverse(matrix, buffer, i, j - 1);
         }
-        if (i != 0 && matrix[i - 1][j] >= matrix[i][j]) {
-            helper(matrix, i - 1, j, v);
+        if (i < matrix.length - 1 && !buffer[i + 1][j] && matrix[i + 1][j] >= matrix[i][j]) {
+            buffer[i + 1][j] = true;
+            traverse(matrix, buffer, i + 1, j);
         }
-        if (j != 0 && matrix[i][j - 1] >= matrix[i][j]) {
-            helper(matrix, i, j - 1, v);
-        }
-        if (i != row - 1 && matrix[i + 1][j] >= matrix[i][j]) {
-            helper(matrix, i + 1, j, v);
-        }
-        if (j != col - 1 && matrix[i][j + 1] >= matrix[i][j]) {
-            helper(matrix, i, j + 1, v);
+        if (j < matrix[0].length - 1 && !buffer[i][j + 1] && matrix[i][j + 1] >= matrix[i][j]) {
+            buffer[i][j + 1] = true;
+            traverse(matrix, buffer, i, j + 1);
         }
     }
 }
