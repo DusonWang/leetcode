@@ -20,52 +20,57 @@ package com.leetcode.offer.code;
 public class StrongPasswordChecker {
 
     public int strongPasswordChecker(String s) {
-        int res = 0, a = 1, aa = 1, d = 1;
-        char[] carr = s.toCharArray();
-        int[] arr = new int[carr.length];
-        for (int i = 0; i < arr.length; ) {
-            if (Character.isLowerCase(carr[i])) {
-                a = 0;
-            }
-            if (Character.isUpperCase(carr[i])) {
+        if (s == null) {
+            return 6;
+        }
+        int len = s.length();
+        if (len <= 3) {
+            return 6 - len;
+        }
+        int res = 0, a = 1, aa = 1, n = 1;
+        int[] arr = new int[len];
+        for (int i = 0; i < len; ) {
+            char c = s.charAt(i);
+            if (aa == 1 && c >= 'A' && c <= 'Z') {
                 aa = 0;
             }
-            if (Character.isDigit(carr[i])) {
-                d = 0;
+            if (a == 1 && c >= 'a' && c <= 'z') {
+                a = 0;
+            }
+            if (n == 1 && c >= '0' && c <= '9') {
+                n = 0;
             }
             int j = i;
-            while (i < carr.length && carr[i] == carr[j]) {
-                i++;
+            while (++i < len && c == s.charAt(i)) {
+                ;
             }
             arr[j] = i - j;
         }
-        int totalMissing = (a + aa + d);
-        if (arr.length < 6) {
-            res += totalMissing + Math.max(0, 6 - (arr.length + totalMissing));
-        } else {
-            int overLen = Math.max(arr.length - 20, 0), leftOver = 0;
-            res += overLen;
-            for (int k = 1; k < 3; k++) {
-                for (int i = 0; i < arr.length && overLen > 0; i++) {
-                    if (arr[i] < 3 || arr[i] % 3 != (k - 1)) {
-                        continue;
-                    }
-                    arr[i] -= Math.min(overLen, k);
-                    overLen -= k;
-                }
-            }
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i] >= 3 && overLen > 0) {
-                    int need = arr[i] - 2;
-                    arr[i] -= overLen;
-                    overLen -= need;
-                }
-                if (arr[i] >= 3) {
-                    leftOver += arr[i] / 3;
-                }
-            }
-            res += Math.max(totalMissing, leftOver);
+        int missing = a + aa + n;
+        if (len < 6) {
+            return missing + Math.max(0, 6 - len - missing);
         }
-        return res;
+        int over = Math.max(len - 20, 0), left = 0;
+        res += over;
+        for (int k = 1; k < 3; k++) {
+            for (int i = 0; i < len && over > 0; i++) {
+                if (arr[i] < 3 || arr[i] % 3 != (k - 1)) {
+                    continue;
+                }
+                arr[i] -= Math.min(over, k);
+                over -= k;
+            }
+        }
+        for (int i = 0; i < len; i++) {
+            if (arr[i] >= 3 && over > 0) {
+                int need = arr[i] - 2;
+                arr[i] -= over;
+                over -= need;
+            }
+            if (arr[i] >= 3) {
+                left += arr[i] / 3;
+            }
+        }
+        return res + Math.max(missing, left);
     }
 }
