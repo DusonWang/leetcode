@@ -39,35 +39,38 @@ package com.leetcode.offer.code;
 public class SolveEquation {
 
     public String solveEquation(String equation) {
-        String[] parts = equation.split("=");
-        String leftPart = parts[0], rightPart = parts[1];
-        int[] leftVal = evaluate(leftPart), rightVal = evaluate(rightPart);
-        int cntX = leftVal[0] - rightVal[0];
-        int cntNum = leftVal[1] - rightVal[1];
-        if (cntX == 0) {
-            if (cntNum != 0) {
-                return "No solution";
+        int coefficient = 0, constant = 0;
+        equation = equation + "#";
+        Integer number = null;
+        int sign = 1, left = 1;
+        for (char c : equation.toCharArray()) {
+            if ('0' <= c && c <= '9') {
+                number = number == null ? c - '0' : number * 10 + c - '0';
+            } else if (c == 'x') {
+                coefficient += left * sign * (number == null ? 1 : number);
+                sign = 1;
+                number = null;
+            } else if (c == '+' || c == '-' || c == '#') {
+                if (number != null) {
+                    constant += left * sign * number;
+                    number = null;
+                }
+                sign = c == '+' ? 1 : -1;
+            } else {// if (c == '=')
+                if (number != null) {
+                    constant += left * sign * number;
+                    number = null;
+                }
+                left = -1;
+                sign = 1;
             }
+        }
+        if (coefficient == 0 && constant == 0) {
             return "Infinite solutions";
+        } else if (coefficient == 0) {
+            return "No solution";
+        } else {
+            return "x=" + -constant / coefficient;
         }
-        int valX = (-cntNum) / cntX;
-        return "x=" + valX;
-    }
-
-    private int[] evaluate(String exp) {
-        int[] result = new int[2];
-        String[] expElements = exp.split("(?=[-+])");
-        for (String ele : expElements) {
-            if ("+x".equals(ele) || "x".equals(ele)) {
-                result[0]++;
-            } else if ("-x".equals(ele)) {
-                result[0]--;
-            } else if (ele.contains("x")) {
-                result[0] += Integer.parseInt(ele.substring(0, ele.indexOf("x")));
-            } else {
-                result[1] += Integer.parseInt(ele);
-            }
-        }
-        return result;
     }
 }
