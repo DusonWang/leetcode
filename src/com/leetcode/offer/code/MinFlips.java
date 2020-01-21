@@ -41,13 +41,17 @@ package com.leetcode.offer.code;
 public class MinFlips {
 
     public int minFlips(int a, int b, int c) {
-        int ans = 0, ab = a | b, equal = ab ^ c;
-        for (int i = 0; i < 31; ++i) {
-            int mask = 1 << i;
-            if ((equal & mask) > 0) {
-                ans += (a & mask) == (b & mask) && (c & mask) == 0 ? 2 : 1;
+        int result = 0;
+        for (int i = 0; i < 31; i++) {
+            int bitA = (a >> i) & 1;
+            int bitB = (b >> i) & 1;
+            int bitC = (c >> i) & 1;
+            if (bitC == 0) {
+                result += bitA + bitB;
+            } else {
+                result += bitA + bitB == 0 ? 1 : 0;
             }
         }
-        return ans;
+        return result;
     }
 }
