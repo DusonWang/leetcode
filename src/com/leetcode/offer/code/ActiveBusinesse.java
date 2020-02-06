@@ -52,7 +52,7 @@ public class ActiveBusinesse {
 
     //# Write your MySQL query statement below
     //select business_id from Events e
-    //right join
+    // join
     //(select event_type,avg(occurences) as avg_account
     //from Events
     //group by event_type) as a
