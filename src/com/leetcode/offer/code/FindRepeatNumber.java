@@ -46,15 +46,11 @@ public class FindRepeatNumber {
                 if (nums[i] == nums[nums[i]]) {
                     return nums[i];
                 }
-                swap(nums, i, nums[i]);
+                int temp = nums[i];
+                nums[i] = nums[nums[i]];
+                nums[nums[i]] = temp;
             }
         }
         return -1;
-    }
-
-    private void swap(int[] nums, int index1, int index2) {
-        int temp = nums[index1];
-        nums[index1] = nums[index2];
-        nums[index2] = temp;
     }
 }
