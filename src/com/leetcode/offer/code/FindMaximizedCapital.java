@@ -38,19 +38,21 @@ import java.util.PriorityQueue;
  */
 public class FindMaximizedCapital {
 
-    public int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) {
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
         PriorityQueue<int[]> pqCap = new PriorityQueue<>((a, b) -> (a[0] - b[0]));
         PriorityQueue<int[]> pqPro = new PriorityQueue<>((a, b) -> (b[1] - a[1]));
-        for (int i = 0; i < Profits.length; i++) {
-            pqCap.add(new int[]{Capital[i], Profits[i]});
+        for (int i = 0; i < profits.length; i++) {
+            pqCap.add(new int[]{capital[i], profits[i]});
         }
         for (int i = 0; i < k; i++) {
-            while (!pqCap.isEmpty() && pqCap.peek()[0] <= W) {
+            while (!pqCap.isEmpty() && pqCap.peek()[0] <= w) {
                 pqPro.add(pqCap.poll());
             }
-            if (pqPro.isEmpty()) break;
-            W += pqPro.poll()[1];
+            if (pqPro.isEmpty()) {
+                break;
+            }
+            w += pqPro.poll()[1];
         }
-        return W;
+        return w;
     }
 }
