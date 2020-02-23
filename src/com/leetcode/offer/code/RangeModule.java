@@ -2,7 +2,6 @@ package com.leetcode.offer.code;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -44,48 +43,64 @@ public class RangeModule {
     private TreeSet<Interval> ranges;
 
     public RangeModule() {
-        ranges = new TreeSet<>();
+        ranges = new TreeSet();
     }
 
     public void addRange(int left, int right) {
-        Iterator<Interval> itr = ranges.tailSet(new Interval(0, left)).iterator();
+        //找到只有大于left的后续区间，开始进行合并， 为了避免left接起来了，正好相等，就把left-1
+        Iterator<Interval> itr = ranges.tailSet(new Interval(0, left - 1)).iterator();
         while (itr.hasNext()) {
-            Interval cur = itr.next();
-            if (cur.left > right) {
+            Interval iv = itr.next();
+            //比所有tailset出来的区间小，直接完成，直接加入就好了
+            //或者新加出来的区间比下一个间小了，不用再合并区间了，也可以完成了
+            if (right < iv.left) {
                 break;
             }
-            left = Math.min(left, cur.left);
-            right = Math.max(right, cur.right);
+
+            //上个条件没有达成，那就一定有相交，那就进行合并
+            left = Math.min(left, iv.left);
+            right = Math.max(right, iv.right);
             itr.remove();
         }
         ranges.add(new Interval(left, right));
     }
 
     public boolean queryRange(int left, int right) {
-        Interval cur = ranges.higher(new Interval(0, right - 1));
-        return (cur != null && cur.left <= left && cur.right >= right);
+        Interval iv = ranges.higher(new Interval(0, left));
+        return (iv != null && iv.left <= left && right <= iv.right);
     }
 
     public void removeRange(int left, int right) {
+        //找到只有大于left的后续区间，开始进行删除
         Iterator<Interval> itr = ranges.tailSet(new Interval(0, left)).iterator();
-        List<Interval> todo = new ArrayList<>();
+        ArrayList<Interval> todo = new ArrayList<>();
         while (itr.hasNext()) {
-            Interval cur = itr.next();
-            if (cur.left >= right) {
+            Interval iv = itr.next();
+            //只有当下一个区间的left 比要删除的right都大了，这时就已经完成了
+            if (right < iv.left) {
                 break;
             }
-            if (left > cur.left) {
-                todo.add(new Interval(cur.left, left));
+
+            //如果遍历的区间left比要删除的小，那就要把 遍历的这个left -> 要删除left之间保留下来
+            if (iv.left < left) {
+                todo.add(new Interval(iv.left, left));
             }
-            if (right < cur.right) {
-                todo.add(new Interval(right, cur.right));
+
+            //如果遍历的区间right比要删除的大，那就要把 删除rithg -> 要遍历right之间保留下来
+            if (right < iv.right) {
+                todo.add(new Interval(right, iv.right));
             }
+
+            //如果上面都没有走，那说明这个遍历的区间完全被删除区间包含了，可以直接把这个区间给删除了
             itr.remove();
         }
-        ranges.addAll(todo);
+        for (Interval iv : todo) {
+            ranges.add(iv);
+        }
     }
 
-    static class Interval implements Comparable<Interval> {
+
+    public static class Interval implements Comparable<Interval> {
         int left;
         int right;
 
