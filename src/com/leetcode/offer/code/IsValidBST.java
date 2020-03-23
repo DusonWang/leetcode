@@ -73,7 +73,6 @@ public class IsValidBST {
         return inOrderRecur(root, min, max);
     }
 
-
     private boolean inOrderRecur(TreeNode root, long start, long end) {
         if (root == null) {
             return true;
