@@ -1,7 +1,9 @@
 package com.leetcode.offer.code;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * @author duson
@@ -61,6 +63,31 @@ public class LevelOrder {
         if (node.right != null) {
             back(node.right, level + 1, list);
         }
+    }
+
+    public int[] levelOrder2(TreeNode root) {
+        if (root == null) {
+            return new int[0];
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        List<Integer> list = new ArrayList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            list.add(node.val);
+            if (node.left != null) {
+                q.offer(node.left);
+            }
+            if (node.right != null) {
+                q.offer(node.right);
+            }
+        }
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+        return res;
+
     }
 
 }
