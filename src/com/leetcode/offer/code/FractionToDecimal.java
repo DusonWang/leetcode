@@ -32,31 +32,31 @@ public class FractionToDecimal {
         if (numerator == 0) {
             return "0";
         }
-        StringBuilder sb = new StringBuilder();
-        if (numerator < 0 || denominator < 0) {
-            sb.append("-");
+        StringBuilder fraction = new StringBuilder();
+        if (numerator < 0 ^ denominator < 0) {
+            fraction.append("-");
         }
         long dividend = Math.abs(Long.valueOf(numerator));
         long divisor = Math.abs(Long.valueOf(denominator));
-        sb.append(dividend / divisor);
+        fraction.append(dividend / divisor);
         long remainder = dividend % divisor;
         if (remainder == 0) {
-            return sb.toString();
+            return fraction.toString();
         }
-        sb.append(".");
+        fraction.append(".");
         Map<Long, Integer> map = new HashMap<>();
         while (remainder != 0) {
             if (map.containsKey(remainder)) {
-                sb.insert(map.get(remainder), "(");
-                sb.append(")");
+                fraction.insert(map.get(remainder), "(");
+                fraction.append(")");
                 break;
             }
-            map.put(remainder, sb.length());
+            map.put(remainder, fraction.length());
             remainder *= 10;
-            sb.append(remainder / divisor);
+            fraction.append(remainder / divisor);
             remainder %= divisor;
         }
-        return sb.toString();
+        return fraction.toString();
     }
 
     public static void main(String[] args) {
