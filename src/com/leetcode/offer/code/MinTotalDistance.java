@@ -1,6 +1,7 @@
 package com.leetcode.offer.code;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,31 +38,25 @@ public class MinTotalDistance {
     public int minTotalDistance(int[][] grid) {
         List<Integer> rows = new ArrayList<>();
         List<Integer> cols = new ArrayList<>();
-        int row = grid.length;
-        int col = grid[0].length;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (grid[i][j] == 1) {
-                    rows.add(i);
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 1) {
+                    rows.add(row);
+                    cols.add(col);
                 }
             }
         }
-        for (int j = 0; j < col; j++) {
-            for (int i = 0; i < row; i++) {
-                if (grid[i][j] == 1) {
-                    cols.add(i);
-                }
-            }
+        int row = rows.get(rows.size() / 2);
+        Collections.sort(cols);
+        int col = cols.get(cols.size() / 2);
+        return minDistance1D(rows, row) + minDistance1D(cols, col);
+    }
+
+    private int minDistance1D(List<Integer> points, int origin) {
+        int distance = 0;
+        for (int point : points) {
+            distance += Math.abs(point - origin);
         }
-        int r = rows.get(rows.size() / 2);
-        int c = cols.get(cols.size() / 2);
-        int d = 0;
-        for (int pp : rows) {
-            d += Math.abs(pp - r);
-        }
-        for (int pp : cols) {
-            d += Math.abs(pp - c);
-        }
-        return d;
+        return distance;
     }
 }
