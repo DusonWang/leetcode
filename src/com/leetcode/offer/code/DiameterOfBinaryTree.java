@@ -32,19 +32,21 @@ public class DiameterOfBinaryTree {
         }
     }
 
-    private int maxDepth = 0;
+    private int ans;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        return depth(root);
+        ans = 1;
+        depth(root);
+        return ans - 1;
     }
 
-    private int depth(TreeNode root) {
-        if (root == null) {
+    public int depth(TreeNode node) {
+        if (node == null) {
             return 0;
         }
-        int leftDepth = depth(root.left);
-        int rightDepth = depth(root.right);
-        maxDepth = Math.max(leftDepth + rightDepth, maxDepth);
-        return Math.max(leftDepth, rightDepth) + 1;
+        int l = depth(node.left);
+        int r = depth(node.right);
+        ans = Math.max(ans, l + r + 1);
+        return Math.max(l, r) + 1;
     }
 }
