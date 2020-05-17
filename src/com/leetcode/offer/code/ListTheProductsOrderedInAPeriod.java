@@ -85,12 +85,12 @@ package com.leetcode.offer.code;
  */
 public class ListTheProductsOrderedInAPeriod {
 
-    //# Write your MySQL query statement below
-    //select a.product_name,w.s1 as unit from Products a
-    //join(select product_id,sum(unit) s1
-    //from orders
-    //where order_date between "2020-02-01" and "2020-02-30"
-    //group by product_id
-    //having sum(unit)>=100) w
-    //on a.product_id =w.product_id
+    //select T.product_name, T.unit
+    //from (
+    //    select p.product_name, sum(unit) as unit
+    //    from Orders o join Products p on o.product_id = p.product_id
+    //    where order_date like "2020-02%"
+    //    group by p.product_id
+    //    ) as T
+    //where T.unit>= 100
 }
