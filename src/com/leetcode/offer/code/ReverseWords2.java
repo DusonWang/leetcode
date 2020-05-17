@@ -40,33 +40,45 @@ package com.leetcode.offer.code;
 public class ReverseWords2 {
 
     public String reverseWords(String s) {
-        if (null == s || s.length() == 0) {
+//        if (null == s || s.length() == 0) {
+//            return "";
+//        }
+//        final char[] c = s.toCharArray();
+//        final int len = c.length;
+//        int i = len - 1;
+//
+//        while (i >= 0 && c[i] == ' ') {
+//            i--;
+//        }
+//        int left = i + 1;
+//        int right = i + 1;
+//        StringBuilder sb = new StringBuilder(i + 1);
+//        for (; i >= 0; i--) {
+//            if (c[i] == ' ') {
+//                if (right != left) {
+//                    sb.append(c, left, right - left).append(" ");
+//                }
+//                left = i;
+//                right = i;
+//                continue;
+//            }
+//            left = i;
+//        }
+//        if (right != left) {
+//            return sb.append(c, left, right - left).toString();
+//        }
+//        return sb.length() > 0 ? sb.substring(0, sb.length() - 1) : "";
+        if (s == null || s.length() == 0 || s.trim().length() == 0) {
             return "";
         }
-        final char[] c = s.toCharArray();
-        final int len = c.length;
-        int i = len - 1;
-
-        while (i >= 0 && c[i] == ' ') {
-            i--;
-        }
-        int left = i + 1;
-        int right = i + 1;
-        StringBuilder sb = new StringBuilder(i + 1);
-        for (; i >= 0; i--) {
-            if (c[i] == ' ') {
-                if (right != left) {
-                    sb.append(c, left, right - left).append(" ");
-                }
-                left = i;
-                right = i;
-                continue;
+        String[] arr = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i].length() > 0) {
+                sb.append(arr[i]).append(" ");
             }
-            left = i;
         }
-        if (right != left) {
-            return sb.append(c, left, right - left).toString();
-        }
-        return sb.length() > 0 ? sb.substring(0, sb.length() - 1) : "";
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }
