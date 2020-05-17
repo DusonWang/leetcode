@@ -33,6 +33,10 @@ package com.leetcode.offer.code;
 public class CanPartition {
 
     public boolean canPartition(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return false;
+        }
         int sum = 0;
         for (int num : nums) {
             sum += num;
@@ -40,18 +44,21 @@ public class CanPartition {
         if ((sum & 1) == 1) {
             return false;
         }
-        sum = sum >> 1;
-        final boolean[] dp = new boolean[sum + 1];
+        int target = sum / 2;
+        boolean[] dp = new boolean[target + 1];
         dp[0] = true;
-        for (int num : nums) {
-            for (int j = sum; j >= num; j--) {
-                dp[j] = dp[j - num];
-            }
-            if (dp[sum]) {
-                return true;
+        if (nums[0] <= target) {
+            dp[nums[0]] = true;
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = target; nums[i] <= j; j--) {
+                if (dp[target]) {
+                    return true;
+                }
+                dp[j] = dp[j] || dp[j - nums[i]];
             }
         }
-        return false;
+        return dp[target];
     }
 
     public static void main(String[] args) {
