@@ -26,7 +26,7 @@ package com.leetcode.offer.code;
  */
 public class FirstUniqChar2 {
 
-    public int firstUniqChar(String s) {
+    public char firstUniqChar(String s) {
         if (s == null || "".equals(s)) {
             return ' ';
         }
@@ -35,9 +35,9 @@ public class FirstUniqChar2 {
         for (char c : ca) {
             array[c - 'a'] += 1;
         }
-        for (int i = 0; i < ca.length; i++) {
-            if (array[ca[i] - 'a'] == 1) {
-                return i;
+        for (char c : ca) {
+            if (array[c - 'a'] == 1) {
+                return c;
             }
         }
         return ' ';
