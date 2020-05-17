@@ -36,7 +36,7 @@ package com.leetcode.offer.code;
 public class ReverseBits {
 
     // you need treat n as an unsigned value
-    public int reverseBits(int n) {
+    public int reverseBits2(int n) {
         int result = 0;
         for (int i = 0; i < 32; i++) {
             result <<= 1;
@@ -44,5 +44,40 @@ public class ReverseBits {
             n >>= 1;
         }
         return result;
+    }
+
+    /**
+     * 给定一个32位整数 num，你可以将一个数位从0变为1。请编写一个程序，找出你能够获得的最长的一串1的长度。
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入: num = 1775(110111011112)
+     * 输出: 8
+     * 示例 2：
+     * <p>
+     * 输入: num = 7(01112)
+     * 输出: 4
+     * 通过次数1,726提交次数3,640
+     * 在真实的面试中遇到过这道题？
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/reverse-bits-lcci
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+    public int reverseBits(int num) {
+        int count1 = 1;
+        int position = -1;
+        int sum = 0;
+        for (int i = 0; i < 33; i++) {
+            if ((num & 1) == 1) {
+                count1++;
+            } else {
+                sum = Math.max(sum, count1);
+                count1 = i - position;
+                position = i;
+            }
+            num >>>= 1;
+        }
+        return sum;
     }
 }
