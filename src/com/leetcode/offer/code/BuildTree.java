@@ -50,6 +50,7 @@ public class BuildTree {
             k++;
         }
         root.left = build(preorder, p + 1, inorder, i, k);
+        //o.o
         root.right = build(preorder, p + 1 + k - i, inorder, k + 1, j);
         return root;
     }
