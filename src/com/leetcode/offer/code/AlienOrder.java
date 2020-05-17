@@ -55,107 +55,74 @@ package com.leetcode.offer.code;
  */
 public class AlienOrder {
 
+    private final int n = 26;
+
     public String alienOrder(String[] words) {
-        final boolean[][] graph = new boolean[26][26];
-        final int[] inDegrees = new int[26];
-        final boolean[] alphabets = new boolean[26];
-        int alphabetsCount = 0;
-        char[] word = new char[0];
-        for (String s : words) {
-            char[] prev = word;
-            word = s.toCharArray();
-            for (char c : word) {
-                if (!alphabets[c - 'a']) {
-                    alphabets[c - 'a'] = true;
-                    alphabetsCount++;
-                }
-            }
-            for (int j = 0; j < Math.min(prev.length, word.length); j++) {
-                if (prev[j] != word[j]) {
-                    if (!graph[prev[j] - 'a'][word[j] - 'a']) {
-                        graph[prev[j] - 'a'][word[j] - 'a'] = true;
-                        inDegrees[word[j] - 'a']++;
-                    }
-                    break;
-                }
-            }
-        }
-        char[] result = new char[alphabetsCount];
-        int pos = 0;
-        do {
-            boolean changed = false;
-            for (int i = 0; i < alphabets.length; i++) {
-                if (alphabets[i]) {
-                    if (inDegrees[i] == 0) {
-                        result[pos++] = (char) (i + 'a');
-                        changed = true;
-                        for (int j = 0; j < graph[i].length; j++) {
-                            if (graph[i][j]) {
-                                inDegrees[j]--;
-                            }
-                        }
-                        alphabets[i] = false;
-                    }
-                }
-            }
-            if (!changed) {
-                break;
-            }
-        } while (pos < result.length);
-        return pos == result.length ? new String(result) : "";
-    }
-
-    private void find(boolean[] alphabets, boolean[][] graph, int tail, int[] visited, StringBuilder sb) {
-        if (!alphabets[tail] || visited[tail] != 0) {
-            return;
-        }
-        visited[tail] = 1;
-        for (int i = 0; i < graph[tail].length; i++) {
-            if (graph[tail][i] && alphabets[i] && visited[i] == 1) {
-                return;
-            }
-            if (graph[tail][i] && alphabets[i] && visited[i] == 0) {
-                find(alphabets, graph, i, visited, sb);
-            }
-        }
-        visited[tail] = 2;
-        sb.append((char) (tail + 'a'));
-    }
-
-    public String alienOrder2(String[] words) {
-        char[][] ws = new char[words.length][];
-        boolean[] alphabets = new boolean[26];
-        int letters = 0;
-        for (int i = 0; i < words.length; i++) {
-            ws[i] = words[i].toCharArray();
-            for (int j = 0; j < ws[i].length; j++) {
-                if (!alphabets[ws[i][j] - 'a']) {
-                    alphabets[ws[i][j] - 'a'] = true;
-                    letters++;
-                }
-            }
-        }
-        boolean[][] graph = new boolean[26][26];
-        for (int i = 0; i < words.length - 1; i++) {
-            for (int j = 0; j < Math.min(words[i].length(), words[i + 1].length()); j++) {
-                if (ws[i + 1][j] != ws[i][j]) {
-                    graph[ws[i + 1][j] - 'a'][ws[i][j] - 'a'] = true;
-                    break;
-                }
-            }
-        }
-        int[] visited = new int[26];
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < alphabets.length; i++) {
-            if (!alphabets[i] || visited[i] != 0) {
-                continue;
-            }
-            find(alphabets, graph, i, visited, sb);
-        }
-        if (sb.length() == letters) {
-            return sb.toString();
-        } else {
+        boolean[][] adj = new boolean[n][n];
+        int[] visited = new int[n];
+        buildGraph(words, adj, visited);
+        if (illegal) {
             return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            if (visited[i] == '0') {
+                if (!dfs(adj, visited, sb, i)) {
+                    return "";
+                }
+            }
+        }
+        return sb.reverse().toString();
+    }
+
+    private boolean dfs(boolean[][] adj, int[] visited, StringBuilder sb, int i) {
+        visited[i] = '1';
+        for (int j = 0; j < n; j++) {
+            if (adj[i][j]) {
+                if (visited[j] == '1') {
+                    return false;
+                }
+                if (visited[j] == '0') {
+                    if (!dfs(adj, visited, sb, j)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        visited[i] = '2';
+        sb.append((char) (i + 'a'));
+        return true;
+    }
+
+    boolean illegal = false;
+
+    private void buildGraph(String[] words, boolean[][] adj, int[] visited) {
+        for (int i = 0; i < words.length; i++) {
+            for (char c : words[i].toCharArray()) {
+                visited[c - 'a'] = '0';
+            }
+            if (i > 0) {
+                String s1 = words[i - 1];
+                String s2 = words[i];
+
+                int len = Math.min(s1.length(), s2.length());
+                int same = 0;
+
+                for (int j = 0; j < len; j++) {
+                    if (s1.charAt(j) != s2.charAt(j)) {
+                        adj[s1.charAt(j) - 'a'][s2.charAt(j) - 'a'] = true;
+                        break;
+                    }
+                    same++;
+                }
+
+                for (int j = len; j < s1.length(); j++) {
+                    if (same == len && same > 0) {
+                        illegal = true;
+                        return;
+                    }
+                }
+            }
         }
     }
 }
