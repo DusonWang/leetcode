@@ -1,5 +1,10 @@
 package com.leetcode.offer.code;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author duson
  * 给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。
@@ -66,5 +71,27 @@ public class FindDiagonalOrder {
             }
         }
         return arr;
+    }
+
+    private final Map<Integer, List<Integer>> m = new HashMap<>();
+
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        int size = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.get(i).size(); j++) {
+                m.putIfAbsent(i + j, new ArrayList<>());
+                m.get(i + j).add(nums.get(i).get(j));
+                size++;
+            }
+        }
+        int[] results = new int[size];
+        int index = 0;
+        for (int i = 0; i < m.size(); i++) {
+            for (int j = m.get(i).size() - 1; j >= 0; j--) {
+                results[index] = m.get(i).get(j);
+                index++;
+            }
+        }
+        return results;
     }
 }
