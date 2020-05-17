@@ -59,6 +59,7 @@ public class MinStack {
         throw new RuntimeException("栈中元素为空，此操作非法");
     }
 
+    //0.0
     public int getMin() {
         if (!helper.isEmpty()) {
             return helper.peek();
