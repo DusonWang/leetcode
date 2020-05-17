@@ -65,12 +65,13 @@ package com.leetcode.offer.code;
  */
 public class ProjectEmployeesIII {
 
-    //# Write your MySQL query statement below
-    //select p.project_id,e.employee_id
-    //from Project as p left join Employee as e on p.employee_id=e.employee_id
-    //where (p.project_id,e.experience_years) in (
-    //select project_id,max(experience_years)
-    //from Project left join Employee on Project.employee_id=Employee.employee_id
-    //group by project_id
+    //select p.project_id, p.employee_id
+    //from Project p
+    //join Employee e
+    //on p.employee_id = e.employee_id
+    //where (p.project_id, e.experience_years) in (
+    //select p.project_id,max(e.experience_years)
+    //from project p join employee e on p.employee_id = e.employee_id
+    //group by p.project_id )
 
 }
