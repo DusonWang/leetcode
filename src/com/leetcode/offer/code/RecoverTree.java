@@ -63,38 +63,6 @@ public class RecoverTree {
         }
     }
 
-    private TreeNode firstElement = null;
-    private TreeNode secondElement = null;
-    private TreeNode prevElement = new TreeNode(Integer.MIN_VALUE);
-
-    public void recoverTree3(TreeNode root) {
-
-        traverse(root);
-        int temp = firstElement.val;
-        firstElement.val = secondElement.val;
-        secondElement.val = temp;
-    }
-
-    private void traverse(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-
-        traverse(root.left);
-
-        if (firstElement == null && prevElement.val >= root.val) {
-            firstElement = prevElement;
-        }
-
-        if (firstElement != null && prevElement.val >= root.val) {
-            secondElement = root;
-        }
-
-        prevElement = root;
-
-        traverse(root.right);
-    }
-
     public void recoverTree(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode firstNode = null;
@@ -122,48 +90,5 @@ public class RecoverTree {
             firstNode.val = secondNode.val;
             secondNode.val = tmp;
         }
-    }
-
-    public void recoverTree2(TreeNode root) {
-        TreeNode cur = root;
-        TreeNode first = null, second = null, preNew = null;
-        while (cur != null) {
-            if (cur.left == null) {
-                if (preNew != null && preNew.val > cur.val) {
-                    if (first == null) {
-                        first = preNew;
-                        second = cur;
-                    } else {
-                        second = cur;
-                    }
-                }
-                preNew = cur;
-                cur = cur.right;
-            } else {
-                TreeNode pre = cur.left;
-                while (pre.right != null && pre.right.val != cur.val) {
-                    pre = pre.right;
-                }
-                if (pre.right == null) {
-                    pre.right = cur;
-                    cur = cur.left;
-                } else {
-                    pre.right = null;
-                    if (preNew != null && preNew.val > cur.val) {
-                        if (first == null) {
-                            first = preNew;
-                            second = cur;
-                        } else {
-                            second = cur;
-                        }
-                    }
-                    preNew = cur;
-                    cur = cur.right;
-                }
-            }
-        }
-        int temp = first.val;
-        first.val = second.val;
-        second.val = temp;
     }
 }
