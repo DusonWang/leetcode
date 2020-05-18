@@ -23,9 +23,6 @@ import java.util.Arrays;
 public class SpiralMatrixii {
 
     public int[][] generateMatrix(int n) {
-        if (n < 2) {
-            return new int[][]{};
-        }
         final int[][] matrix = new int[n][n];
         int l = 0, r = n - 1, t = 0, b = n - 1;
         int num = 1, tar = n * n;
