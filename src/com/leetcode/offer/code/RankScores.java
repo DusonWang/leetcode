@@ -33,15 +33,8 @@ package com.leetcode.offer.code;
  */
 public class RankScores {
 
-    //select a.Score as Score,
-    //count(distinct(b.Score)) as Rank
-    //from Scores as a,Scores as b
-    //where b.Score>=a.Score
-    //group by a.id
-    //order by a.Score desc;
-
-    //select score, @a := @a + (@pre <> (@pre := Score)) as rank
-    //from scores,(select @a := 0, @pre := -1) t
-    //order by score desc;
+    //# Write your MySQL query statement below
+    //select Score, dense_rank() over (order by Score desc)  as `Rank`
+    //from Scores;
 
 }
