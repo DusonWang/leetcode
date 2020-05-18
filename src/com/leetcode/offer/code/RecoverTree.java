@@ -91,4 +91,30 @@ public class RecoverTree {
             secondNode.val = tmp;
         }
     }
+
+    private TreeNode pre = null, t1 = null, t2 = null;
+
+    public void recoverTree2(TreeNode root) {
+        helper(root);
+        int tmp = t1.val;
+        t1.val = t2.val;
+        t2.val = tmp;
+    }
+
+    public void helper(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        helper(root.left);
+        if (pre != null && pre.val >= root.val) {
+            t2 = root;
+            if (t1 == null) {
+                t1 = pre;
+            } else {
+                return;
+            }
+        }
+        pre = root;
+        helper(root.right);
+    }
 }
