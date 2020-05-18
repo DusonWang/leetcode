@@ -25,7 +25,7 @@ import java.util.*;
  */
 public class TopKFrequent {
 
-    public List<Integer> topKFrequent(int[] nums, int k) {
+    public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
             int cnt = map.getOrDefault(num, 0);
@@ -54,7 +54,11 @@ public class TopKFrequent {
                 break;
             }
         }
-        return ans;
+        int[] result = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            result[i] = ans.get(i);
+        }
+        return result;
     }
 
     public List<Integer> topKFrequent2(int[] nums, int k) {
@@ -80,7 +84,7 @@ public class TopKFrequent {
 
     public static void main(String[] args) {
         TopKFrequent topKFrequent = new TopKFrequent();
-        System.out.println(topKFrequent.topKFrequent(new int[]{-1,-1}, 1));
+        System.out.println(topKFrequent.topKFrequent(new int[]{-1, -1}, 1));
     }
 
 }
