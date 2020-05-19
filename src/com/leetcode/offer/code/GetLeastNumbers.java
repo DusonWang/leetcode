@@ -23,6 +23,7 @@ import java.util.Arrays;
  * 0 <= k <= arr.length <= 10000
  * 0 <= arr[i] <= 10000
  * 通过次数19,470提交次数31,726
+ * https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
  * 在真实的面试中遇到过这道题？
  */
 public class GetLeastNumbers {
