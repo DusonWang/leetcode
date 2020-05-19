@@ -67,6 +67,35 @@ public class SpiralOrder {
         return list;
     }
 
+    public int[] spiralOrder2(int[][] matrix) {
+        int m = matrix.length;
+        if (m == 0) {
+            return new int[]{};
+        }
+        int n = matrix[0].length;
+        int top = 0, bot = m - 1, left = 0, right = n - 1;
+        int cnt = 0;
+        int[] res = new int[m * n];
+        while (top <= bot && left <= right) {
+            for (int j = left; j <= right; j++) {
+                res[cnt++] = matrix[top][j];
+            }
+            top++;
+            for (int i = top; i <= bot; i++) {
+                res[cnt++] = matrix[i][right];
+            }
+            right--;
+            for (int j = right; j >= left && top <= bot; j--) {
+                res[cnt++] = matrix[bot][j];
+            }
+            bot--;
+            for (int i = bot; i >= top && left <= right; i--) {
+                res[cnt++] = matrix[i][left];
+            }
+            left++;
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         SpiralOrder spiralOrder = new SpiralOrder();
