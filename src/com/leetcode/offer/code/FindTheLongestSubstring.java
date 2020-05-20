@@ -31,6 +31,8 @@ import java.util.Arrays;
  * s 只包含小写英文字母。
  * 通过次数1,054提交次数2,579
  * 在真实的面试中遇到过这道题？
+ *
+ * https://leetcode-cn.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
  */
 public class FindTheLongestSubstring {
 
