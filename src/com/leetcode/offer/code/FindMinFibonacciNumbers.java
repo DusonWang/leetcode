@@ -39,6 +39,7 @@ package com.leetcode.offer.code;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ * @author duson
  */
 public class FindMinFibonacciNumbers {
 
