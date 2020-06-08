@@ -45,11 +45,13 @@ public class Rand10 {
     }
 
     public int rand10() {
-        int random = 40;
-        while (random >= 40) {
-            //0~42+[0~6] =>[0-48]
-            random = (rand7() - 1) * 7 + rand7() - 1;
+        while (true) {
+            int a = rand7();
+            int b = rand7();
+            a = (a - 1) * 7 + b;
+            if (a <= 40) {
+                return a % 10 + 1;
+            }
         }
-        return random % 10 + 1;
     }
 }
