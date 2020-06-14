@@ -1,5 +1,7 @@
 package com.leetcode.offer.code;
 
+import java.util.Arrays;
+
 /**
  * @author duson
  * 给你一个整数数组 arr 和一个目标值 target ，请你返回一个整数 value ，使得将数组中所有大于 value 的值变成 value 后，数组的和最接近  target （最接近表示两者之差的绝对值最小）。
@@ -37,24 +39,18 @@ package com.leetcode.offer.code;
  */
 public class FindBestValue {
 
-    public int findBestValue(int[] arr, int target) {
-        int l = 0, r = target, currRes = Integer.MAX_VALUE, res = Integer.MAX_VALUE;
-        while (l <= r) {
-            int m = l + (r - l) / 2;
-            int sum = 0;
-            for (int x : arr) {
-                sum += Math.min(x, m);
-            }
-            int abs = Math.abs(target - sum);
-            if (abs < currRes) {
-                currRes = abs;
-                res = m;
-            }
-            if (sum > target) {
-                r = m - 1;
-            } else {
-                l = m + 1;
-            }
+    public int findBestValue(int[] a, int target) {
+        Arrays.sort(a);
+        int n = a.length, i = 0;
+        while (i < n && target > a[i] * (n - i)) {
+            target -= a[i++];
+        }
+        if (i == n) {
+            return a[n - 1];
+        }
+        int res = target / (n - i);
+        if (target - res * (n - i) > (res + 1) * (n - i) - target) {
+            res++;
         }
         return res;
     }
