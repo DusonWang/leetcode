@@ -56,7 +56,6 @@ public class BuildTree2 {
             }
         }
         TreeNode root = new TreeNode(val);
-
         /*
          * left numbers  = k-1-inl
          * right numbers = inr-k-1;
