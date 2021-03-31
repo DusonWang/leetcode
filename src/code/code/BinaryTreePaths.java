@@ -40,15 +40,16 @@ public class BinaryTreePaths {
     }
 
     private void build(TreeNode node, String path, List<String> paths) {
-        if (node != null) {
-            path += node.val;
-            if (node.left == null && node.right == null) {
-                paths.add(path);
-            } else {
-                path += "->";
-                build(node.left, path, paths);
-                build(node.right, path, paths);
-            }
+        if (node == null) {
+            return;
+        }
+        path += node.val;
+        if (node.left == null && node.right == null) {
+            paths.add(path);
+        } else {
+            path += "->";
+            build(node.left, path, paths);
+            build(node.right, path, paths);
         }
     }
 
