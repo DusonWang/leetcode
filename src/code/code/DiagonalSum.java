@@ -46,13 +46,13 @@ public class DiagonalSum {
 
 
     public int diagonalSum(int[][] mat) {
-        int n = mat.length;
         int sum = 0;
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (i == j || i + j == n - 1) {
-                    sum += mat[i][j];
-                }
+        int len = mat.length;
+        for (int i = 0; i < len; i++) {
+            if (i != len - i - 1) {
+                sum += (mat[i][i] + mat[i][len - i - 1]);
+            } else {
+                sum += mat[i][i];
             }
         }
         return sum;
