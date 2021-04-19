@@ -56,6 +56,7 @@ public class LRUCache2 {
         }
         del(node);
         add(node);
+
         return node.value;
     }
 
