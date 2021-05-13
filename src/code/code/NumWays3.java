@@ -47,23 +47,19 @@ package code.code;
 public class NumWays3 {
 
     public int numWays(int steps, int arrLen) {
-        final int MODULO = 1000000007;
-        int maxColumn = Math.min(arrLen - 1, steps);
-        int[] dp = new int[maxColumn + 1];
-        dp[0] = 1;
+        int[][] arr = new int[steps + 1][Math.min((steps / 2) + 1, arrLen)];
+        arr[0][0] = 1;
         for (int i = 1; i <= steps; i++) {
-            int[] dpNext = new int[maxColumn + 1];
-            for (int j = 0; j <= maxColumn; j++) {
-                dpNext[j] = dp[j];
-                if (j - 1 >= 0) {
-                    dpNext[j] = (dpNext[j] + dp[j - 1]) % MODULO;
-                }
-                if (j + 1 <= maxColumn) {
-                    dpNext[j] = (dpNext[j] + dp[j + 1]) % MODULO;
+            for (int j = 0; j < arr[0].length; j++) {
+                if (j == 0) {
+                    arr[i][j] = (arr[i - 1][j] + arr[i - 1][j + 1]) % 1000000007;
+                } else if (j == arr[0].length - 1) {
+                    arr[i][j] = (arr[i - 1][j - 1] + arr[i - 1][j]) % 1000000007;
+                } else {
+                    arr[i][j] = ((arr[i - 1][j - 1] + arr[i - 1][j]) % 1000000007 + arr[i - 1][j + 1]) % 1000000007;
                 }
             }
-            dp = dpNext;
         }
-        return dp[0];
+        return arr[steps][0];
     }
 }
