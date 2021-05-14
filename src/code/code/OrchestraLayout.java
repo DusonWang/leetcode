@@ -41,20 +41,13 @@ package code.code;
 public class OrchestraLayout {
 
     public int orchestraLayout(int num, int xPos, int yPos) {
-        long layer = Math.min(Math.min(Math.min(xPos, yPos), num - 1 - xPos), num - 1 - yPos);
-        long res = (4L * num - 4L * layer) * layer % 9;
-        if (xPos == layer) {
-            res = (res + yPos - layer + 1) % 9;
-        } else if (yPos == layer) {
-            res = (res + (num - 2 * layer) + (num - 2 * layer - 1) + (num - 2 * layer - 1) + num - layer - xPos - 1) % 9;
-        } else if (xPos == num - 1 - layer) {
-            res = (res + (num - 2 * layer) + (num - 2 * layer - 1) + num - layer - yPos - 1) % 9;
+        long i = xPos + 1, j = yPos + 1, n = num;
+        long mi = Math.min(i, Math.min(j, Math.min(n - i + 1, n - j + 1))), ans;
+        if (i <= j) {
+            ans = mi * (4 * n - 4 * mi) + 6 * mi - 4 * n - 3 + i + j;
         } else {
-            res = (res + (num - 2 * layer) + xPos - layer) % 9;
+            ans = mi * (4 * n - 4 * mi) + 2 * mi + 1 - i - j;
         }
-        if (res == 0) {
-            return 9;
-        }
-        return (int) res;
+        return (int)(ans % 9 == 0 ? 9 : ans % 9);
     }
 }
