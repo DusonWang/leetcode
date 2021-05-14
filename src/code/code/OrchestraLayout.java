@@ -43,11 +43,12 @@ public class OrchestraLayout {
     public int orchestraLayout(int num, int xPos, int yPos) {
         long i = xPos + 1, j = yPos + 1, n = num;
         long mi = Math.min(i, Math.min(j, Math.min(n - i + 1, n - j + 1))), ans;
+        long aaa = mi * (4 * n - 4 * mi);
         if (i <= j) {
-            ans = mi * (4 * n - 4 * mi) + 6 * mi - 4 * n - 3 + i + j;
+            ans = aaa + 6 * mi - 4 * n - 3 + i + j;
         } else {
-            ans = mi * (4 * n - 4 * mi) + 2 * mi + 1 - i - j;
+            ans = aaa + 2 * mi + 1 - i - j;
         }
-        return (int)(ans % 9 == 0 ? 9 : ans % 9);
+        return (int) (ans % 9 == 0 ? 9 : ans % 9);
     }
 }
