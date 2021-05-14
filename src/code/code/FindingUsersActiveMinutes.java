@@ -55,9 +55,6 @@ public class FindingUsersActiveMinutes {
     public int[] findingUsersActiveMinutes(int[][] logs, int k) {
         Map<Integer, Set<Integer>> map = new HashMap<>();
         int[] re = new int[k];
-        for (int i = 0; i < k; i++) {
-            re[i] = 0;
-        }
         for (int[] log : logs) {
             Set<Integer> set = map.getOrDefault(log[0], new HashSet<>());
             set.add(log[1]);
