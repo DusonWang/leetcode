@@ -57,29 +57,25 @@ package code.code;
  */
 public class NumSubmat {
 
-    public int numSubmat(int[][] arr) {
-        int n = arr.length;
-        int m = arr[0].length;
-        int[][] brr = new int[n][m];
-        for (int i = 0; i < n; ++i) {
-            brr[i][0] = arr[i][0];
-            for (int j = 1; j < m; ++j) {
-                if (arr[i][j] == 1) {
-                    brr[i][j] = 1 + brr[i][j - 1];
+    public int numSubmat(int[][] mat) {
+        int row = mat.length;
+        int height = mat[0].length;
+        int[][] count = new int[row][height];
+        int sum = 0;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < height; j++) {
+                if (mat[i][j] == 0 || j == 0) {
+                    count[i][j] = mat[i][j];
+                } else {
+                    count[i][j] = count[i][j - 1] + 1;
+                }
+                int col = count[i][j];
+                for (int k = i; k >= 0 && col != 0; k--) {
+                    col = Math.min(col, count[k][j]);
+                    sum += col;
                 }
             }
         }
-        int ans = 0;
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < m; ++j) {
-                ans += brr[i][j];
-                int min = brr[i][j];
-                for (int ii = i + 1; ii < n; ++ii) {
-                    min = Math.min(min, brr[ii][j]);
-                    ans += min;
-                }
-            }
-        }
-        return ans;
+        return sum;
     }
 }
