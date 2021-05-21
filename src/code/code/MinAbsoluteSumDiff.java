@@ -55,27 +55,30 @@ public class MinAbsoluteSumDiff {
 
     public int minAbsoluteSumDiff(int[] nums1, int[] nums2) {
         TreeSet<Integer> set = new TreeSet<>();
-        int sum = 0;
+        int inf = (int) 1e9;
+        set.add(-inf);
+        set.add(inf);
+        for (int x : nums1) {
+            set.add(x);
+        }
+        long sum = 0;
         int diff = 0;
-        int m = (int) 1e9 + 7;
         for (int i = 0; i < nums1.length; i++) {
-            sum = (sum + Math.abs(nums1[i] - nums2[i])) % m;
-            set.add(nums1[i]);
+            int x = nums1[i];
+            int y = nums2[i];
+            int cost = Math.abs(x - y);
+            diff = Math.max(diff, Math.max(cost - (y - set.floor(y)), cost - (set.ceiling(y) - y)));
+            sum += cost;
         }
-        for (int i = 0; i < nums2.length; i++) {
-            int tmp = Math.abs(nums1[i] - nums2[i]);
-            if (set.floor(nums2[i]) != null) {
-                diff = Math.max(diff, tmp - Math.abs(set.floor(nums2[i]) - nums2[i]));
-            }
-            if (set.ceiling(nums2[i]) != null) {
-                diff = Math.max(diff, tmp - Math.abs(set.ceiling(nums2[i]) - nums2[i]));
-            }
-        }
-        return (sum - diff) % m;
+        sum -= diff;
+        int mod = (int) 1e9 + 7;
+        return (int) (sum % mod);
     }
 
     public static void main(String[] args) {
         MinAbsoluteSumDiff minAbsoluteSumDiff = new MinAbsoluteSumDiff();
+        System.out.println(minAbsoluteSumDiff.minAbsoluteSumDiff(new int[]{1, 7, 5}, new int[]{2, 3, 5}));
+
         System.out.println(minAbsoluteSumDiff.minAbsoluteSumDiff(new int[]{1, 28, 21}, new int[]{9, 21, 20}));
     }
 }
