@@ -51,26 +51,24 @@ package code.code;
  */
 public class CheckPalindromeFormation {
 
-    public boolean isPa(String s, int i, int j) {
-        for (; i < j; ++i, --j) {
-            if (s.charAt(i) != s.charAt(j)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean check(String a, String b) {
-        for (int i = 0, j = b.length() - 1; i < j; ++i, --j) {
-            if (a.charAt(i) != b.charAt(j)) {
-                return isPa(a, i, j) || isPa(b, i, j);
-            }
-        }
-        return true;
-    }
-
     public boolean checkPalindromeFormation(String a, String b) {
-        return check(a, b) || check(b, a);
+        int n = a.length();
+        int left = (n >> 1) - 1;
+        left = Math.min(check(a, a, n, left), check(b, b, n, left));
+        left = Math.min(check(a, b, n, left), check(b, a, n, left));
+        return left == -1;
+    }
+
+    private int check(String a, String b, int n, int left) {
+        int right = n - 1 - left;
+        while (left >= 0 && right < n) {
+            if (a.charAt(left) != b.charAt(right)) {
+                break;
+            }
+            left--;
+            right++;
+        }
+        return left;
     }
 
 }
