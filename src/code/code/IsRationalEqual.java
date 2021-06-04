@@ -53,7 +53,7 @@ import java.util.List;
  */
 public class IsRationalEqual {
 
-    private final List<Double> ratios = Arrays.asList(1.0, 1.0 / 9, 1.0 / 99, 1.0 / 999, 1.0 / 9999);
+    private final double[] ratios = new double[]{1.0, 1.0 / 9, 1.0 / 99, 1.0 / 999, 1.0 / 9999};
 
     public boolean isRationalEqual(String s, String t) {
         return Math.abs(computeValue(s) - computeValue(t)) < 1e-9;
@@ -69,6 +69,6 @@ public class IsRationalEqual {
         int nonRepeatingLength = leftBracket - s.indexOf('.') - 1;
         int repeatingLength = rightBracket - leftBracket - 1;
         int repeatingValue = Integer.parseInt(s.substring(leftBracket + 1, rightBracket));
-        return intNonRepeatingValue + repeatingValue * Math.pow(0.1, nonRepeatingLength) * ratios.get(repeatingLength);
+        return intNonRepeatingValue + repeatingValue * Math.pow(0.1, nonRepeatingLength) * ratios[repeatingLength];
     }
 }
