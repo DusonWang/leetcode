@@ -43,6 +43,39 @@ package code.code;
  */
 public class MinFlips7 {
 
+    /**
+     * 1. 滑动窗口
+     * （1）思路
+     * 对操作 1，将第一个字符移动到字符串结尾，等效于先将 s 首尾相接构造一个长度为 2 * len 的字符串，再通过长度为 len 的滑动窗口取最小值。
+     * 因为最终得到的交替字符串只可能是 “0101010…” 或 “1010101…” 2 种情况，对这 2 种状态分别求解所需的操作次数即可。
+     *
+     *
+     * public int minFlips(String s) {
+     *         String ss = s + s;//先将s首尾相接构造一个长度为2*len的字符串，再通过长度为len的滑动窗口取最小值
+     *         char[] str = ss.toCharArray();
+     *         int len = s.length(), n = str.length, ans = Integer.MAX_VALUE;
+     *         int[] op1 = new int[n + 1], op2 = new int[n + 1];//op1[i]、op2[i]表示构造得到"01010..."和"10101..."前i位的操作次数
+     *         op1[0] = 0;
+     *         op2[0] = 0;
+     *         for (int i = 0; i < n; i++) {
+     *             if ((i & 1) == (int)(str[i] - '0')) {//奇数位为1或偶数位为0
+     *                 op1[i + 1] = op1[i];
+     *                 op2[i + 1] = op2[i] + 1;
+     *             } else {//奇数位为0或偶数位为1
+     *                 op1[i + 1] = op1[i] + 1;
+     *                 op2[i + 1] = op2[i];
+     *             }
+     *         }
+     *         for (int i = len; i <= n; i++) {//移动长度为len的滑动窗口，取最小操作次数
+     *             ans = Math.min(ans, op1[i] - op1[i - len]);
+     *             ans = Math.min(ans, op2[i] - op2[i - len]);
+     *         }
+     *         return ans;
+     *     }
+     *
+     * */
+
+
     public int minFlips(String s) {
         int count = 0;
         int len = s.length();
@@ -64,8 +97,8 @@ public class MinFlips7 {
 
     public static void main(String[] args) {
         MinFlips7 minFlips7 = new MinFlips7();
-        //System.out.println(minFlips7.minFlips("010"));
-        //System.out.println(minFlips7.minFlips("1110"));
+        System.out.println(minFlips7.minFlips("010"));
+        System.out.println(minFlips7.minFlips("1110"));
         System.out.println(minFlips7.minFlips("111000"));
     }
 }
