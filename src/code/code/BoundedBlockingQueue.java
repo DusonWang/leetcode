@@ -84,15 +84,15 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class BoundedBlockingQueue {
 
-    private LinkedList<Integer> queue;
+    private final LinkedList<Integer> queue;
 
-    private int capacity;
+    private final int capacity;
 
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
-    private Condition notFull = lock.newCondition();
+    private final Condition notFull = lock.newCondition();
 
-    private Condition notEmpty = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition();
 
     public BoundedBlockingQueue(int capacity) {
         this.capacity = capacity;
@@ -110,14 +110,13 @@ public class BoundedBlockingQueue {
         } finally {
             lock.unlock();
         }
-
     }
 
     public int dequeue() throws InterruptedException {
         int res;
         lock.lock();
         try {
-            while (queue.size() == 0) {
+            while (queue.isEmpty()) {
                 notEmpty.await();
             }
             res = queue.poll();
