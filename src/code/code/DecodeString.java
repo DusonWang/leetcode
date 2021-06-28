@@ -29,7 +29,7 @@ public class DecodeString {
         int multi = 0;
         Stack<Integer> stackMulti = new Stack<>();
         Stack<String> stackRes = new Stack<>();
-        for (Character c : s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             if (c == '[') {
                 stackMulti.push(multi);
                 stackRes.push(res.toString());
@@ -53,10 +53,8 @@ public class DecodeString {
 
     public static void main(String[] args) {
         DecodeString decodeString = new DecodeString();
-        //System.out.println(decodeString.decodeString("13[a]2[bc]"));
+        System.out.println(decodeString.decodeString("13[a]2[bc]"));
         System.out.println(decodeString.decodeString("3[a2[c]]"));
-        //System.out.println(decodeString.decodeString("2[abc]3[cd]ef"));
-
-
+        System.out.println(decodeString.decodeString("2[abc]3[cd]ef"));
     }
 }
