@@ -29,13 +29,11 @@ package code.code;
  * 链接：https://leetcode-cn.com/problems/target-sum
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * <p>
- *
- *
- *                   sum(P) - sum(N) = target
+ * <p>
+ * <p>
+ * sum(P) - sum(N) = target
  * sum(P) + sum(N) + sum(P) - sum(N) = target + sum(P) + sum(N)
- *                        2 * sum(P) = target + sum(nums)
- *
- *
+ * 2 * sum(P) = target + sum(nums)
  */
 public class TargetSum {
 
@@ -44,7 +42,7 @@ public class TargetSum {
         for (int n : nums) {
             sum += n;
         }
-        if (sum < s || (s + sum) % 2 > 0) {
+        if (sum < s || ((s + sum) & 1) != 0) {
             return 0;
         }
 
@@ -62,5 +60,6 @@ public class TargetSum {
     public static void main(String[] args) {
         TargetSum targetSum = new TargetSum();
         System.out.println(targetSum.findTargetSumWays(new int[]{1, 2, 3, 4, 5}, 3));
+        System.out.println(targetSum.findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
     }
 }
