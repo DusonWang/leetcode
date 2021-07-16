@@ -1,4 +1,4 @@
-package com.leetcode.offer.hand;
+package code.hand;
 
 import java.util.Arrays;
 import java.util.Stack;

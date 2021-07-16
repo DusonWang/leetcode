@@ -1,4 +1,4 @@
-package com.leetcode.offer.sword;
+package code.sword;
 
 import java.util.Arrays;
 

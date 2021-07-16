@@ -1,4 +1,4 @@
-package com.leetcode.offer.hand;
+package code.hand;
 
 /**
  * @author duson
