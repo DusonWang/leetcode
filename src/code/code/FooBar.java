@@ -43,14 +43,14 @@ import java.util.concurrent.Semaphore;
  */
 public class FooBar {
 
-    private int n;
+    private final int n;
 
     public FooBar(int n) {
         this.n = n;
     }
 
-    private Semaphore foo = new Semaphore(1);
-    private Semaphore bar = new Semaphore(0);
+    private final Semaphore foo = new Semaphore(1);
+    private final Semaphore bar = new Semaphore(0);
 
     public void foo(Runnable printFoo) throws InterruptedException {
         for (int i = 0; i < n; i++) {
