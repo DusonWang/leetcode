@@ -37,9 +37,9 @@ public class MedianFinder {
 
     private int count;
 
-    private PriorityQueue<Integer> minHeap;
+    private final PriorityQueue<Integer> minHeap;
 
-    private PriorityQueue<Integer> maxHeap;
+    private final PriorityQueue<Integer> maxHeap;
 
     /**
      * initialize your data structure here.
