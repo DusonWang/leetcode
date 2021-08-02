@@ -27,12 +27,14 @@ public class LengthOfLongestSubstringKDistinct {
         int walker = 0;
         int runner = 0;
         int count = 0;
-        while (runner < s.length()) {
-            if (map[s.charAt(runner++)]++ == 0) {
+        int len = s.length();
+        char[] arr = s.toCharArray();
+        while (runner < len) {
+            if (map[arr[runner++]]++ == 0) {
                 count++;
             }
             while (count > k) {
-                if (map[s.charAt(walker++)]-- == 1) {
+                if (map[arr[walker++]]-- == 1) {
                     count--;
                 }
             }
