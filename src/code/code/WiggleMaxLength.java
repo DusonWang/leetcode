@@ -35,12 +35,12 @@ public class WiggleMaxLength {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int up = 1, down = 1;
+        int up = 1;
+        int down = 1;
         for (int i = 1; i < nums.length; i++) {
-            int c = nums[i] - nums[i - 1];
-            if (c > 0) {
+            if (nums[i] > nums[i - 1]) {
                 up = down + 1;
-            } else if (c < 0) {
+            } else if (nums[i] < nums[i - 1]) {
                 down = up + 1;
             }
         }
